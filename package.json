@@ -1,6 +1,6 @@
 {
   "name": "@jairemix/capacitor-segment",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "capacitor wrapper plugin for Segment SDK",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -9,7 +9,7 @@
     "clean": "rm -rf ./dist",
     "watch": "tsc --watch",
     "prepublishOnly": "yarn build",
-    "release": "yarn build && yarn publish --access public"
+    "release": "yarn publish --access public"
   },
   "author": "Jeremy Li",
   "license": "MIT",
@@ -23,9 +23,14 @@
   },
   "files": [
     "dist/",
-    "ios/",
+    "ios/Plugin",
+    "ios/Plugin.xcodeproj",
+    "ios/Plugin.xcworkspace",
+    "ios/PluginTests",
+    "ios/Podfile",
+    "ios/Podfile.lock",
     "android/",
-    "CapacitorPluginSegment.podspec"
+    "JairemixCapacitorSegment.podspec"
   ],
   "keywords": [
     "capacitor",

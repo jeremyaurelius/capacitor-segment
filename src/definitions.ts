@@ -19,6 +19,7 @@ export interface SegmentPlugin {
   track(options: {
     eventName: string,
     properties?: { [K: string]: any },
+    options?: { [K: string]: any},
   }): Promise<{}>;
 
   reset(): Promise<{}>;

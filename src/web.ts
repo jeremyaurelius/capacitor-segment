@@ -27,6 +27,7 @@ export class SegmentPluginWeb extends WebPlugin implements SegmentPlugin {
   async track(_: {
     eventName: string,
     properties?: { [K: string]: any },
+    options?: { [K: string]: any },
   }): Promise<{}> {
     throw Error('not available on web');
   }
