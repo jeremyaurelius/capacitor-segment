@@ -3,15 +3,21 @@ PODS:
   - Capacitor (1.0.0):
     - CapacitorCordova (= 1.0.0)
   - CapacitorCordova (1.0.0)
+  - PromisesObjC (1.2.8)
+  - PromisesSwift (1.2.8):
+    - PromisesObjC (= 1.2.8)
 
 DEPENDENCIES:
   - Analytics (= 3.6.10)
   - "Capacitor (from `../node_modules/@capacitor/ios`)"
+  - PromisesSwift (= 1.2.8)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Analytics
     - CapacitorCordova
+    - PromisesObjC
+    - PromisesSwift
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -21,7 +27,9 @@ SPEC CHECKSUMS:
   Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
   Capacitor: 48e6d22d3d2fe9fd95f6c128136a7b538b7fd50d
   CapacitorCordova: dd5a5a6ca827445b1f97ed0bb9ca4dbf424802c3
+  PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
 
-PODFILE CHECKSUM: 1cce9b39ac8b66b5f57d23ea8eb88573b3fb08ee
+PODFILE CHECKSUM: 2d010dcf159d81a61a631e9e548331608c963dd8
 
 COCOAPODS: 1.6.1
