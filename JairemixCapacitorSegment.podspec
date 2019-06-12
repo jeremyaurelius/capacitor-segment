@@ -1,8 +1,8 @@
 
   Pod::Spec.new do |s|
-    s.name = 'CapacitorPluginSegment'
+    s.name = 'JairemixCapacitorSegment'
     s.version = '0.0.1'
-    s.summary = 'capacitor wrapper plugin for Segment SDK'
+    s.summary = 'Capacitor wrapper plugin for Segment SDK'
     s.license = 'MIT'
     s.homepage = 'https://github.com/jairemix/capacitor-segment'
     s.author = 'Jeremy Li'
