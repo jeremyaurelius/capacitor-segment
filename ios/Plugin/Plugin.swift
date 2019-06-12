@@ -9,26 +9,30 @@ import Analytics
 @objc(SegmentPlugin)
 public class SegmentPlugin: CAPPlugin {
     
-    var key: String?;
+    private var key: String?;
     
-    override init(bridge: CAPBridge!, pluginId: String!, pluginName: String!) {
-        #if DEBUG
-            print("[Segment] ▶️ Segment plugin initialised: " + pluginId + " " + pluginName)
-        #endif
-        super.init(bridge: bridge, pluginId: pluginId, pluginName: pluginName)
-    }
+//    override init(bridge: CAPBridge!, pluginId: String!, pluginName: String!) {
+//        #if DEBUG
+//            print("[Segment] ▶️ Segment plugin initialised: " + pluginId + " " + pluginName)
+//        #endif
+//        super.init(bridge: bridge, pluginId: pluginId, pluginName: pluginName)
+//    }
 
     @objc func setUp(_ call: CAPPluginCall) {
         if (self.key != nil) {
-            call.error("segment already set up")
-            return;
+          call.error("segment already set up", nil, [
+            "code": "[SET_UP] DUPE_CALL",
+          ]);
+          return;
         }
         let key = call.getString("key")
         let useLocationServices = call.getBool("useLocationServices") ?? false;
         let trackLifecycle = call.getBool("trackLifecycle") ?? false;
 
         if (key == nil) {
-            call.error("segment key not specified")
+            call.error("segment key not specified", nil, [
+              "code": "[SET_UP] NO_KEY",
+            ]);
             return;
         } else {
             #if DEBUG
@@ -48,13 +52,17 @@ public class SegmentPlugin: CAPPlugin {
     
     @objc func identify(_ call: CAPPluginCall) {
         if (self.key == nil) {
-            call.error("segment not set up")
-            return;
+          call.error("segment not set up", nil, [
+            "code": "[IDENTIFY] NOT_SET_UP",
+          ]);
+          return;
         }
         let userID = call.getString("userID")
         if (userID == nil) {
-            call.error("no user ID specified")
-            return;
+          call.error("no userID specified", nil, [
+            "code": "[IDENTIFY] NO_USER_ID",
+          ]);
+          return;
         }
         
         let traits: Dictionary = call.getObject("traits") ?? [:];
@@ -70,12 +78,16 @@ public class SegmentPlugin: CAPPlugin {
     
     @objc func track(_ call: CAPPluginCall) {
         if (self.key == nil) {
-            call.error("segment not set up")
+            call.error("segment not set up", nil, [
+              "code": "[TRACK] NOT_SET_UP",
+            ]);
             return;
         }
         let eventName = call.getString("eventName")
         if (eventName == nil) {
-            call.error("no event name specified")
+            call.error("no eventName specified", nil, [
+              "code": "[TRACK] NO_EVENT_NAME",
+            ]);
             return;
         }
         
@@ -93,7 +105,9 @@ public class SegmentPlugin: CAPPlugin {
     
     @objc func reset(_ call: CAPPluginCall) {
         if (self.key == nil) {
-            call.error("segment not set up")
+            call.error("segment not set up", nil, [
+              "code": "[RESET] NOT_SET_UP",
+            ]);
             return;
         }
         #if DEBUG

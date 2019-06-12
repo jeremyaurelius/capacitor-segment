@@ -37,9 +37,9 @@ export class SegmentPluginWeb extends WebPlugin implements SegmentPlugin {
 
 }
 
-const SegmentPlugin = new SegmentPluginWeb();
+const segmentPluginWeb = new SegmentPluginWeb();
 
-export { SegmentPlugin };
+export { segmentPluginWeb };
 
 import { registerWebPlugin } from '@capacitor/core';
-registerWebPlugin(SegmentPlugin);
+registerWebPlugin(segmentPluginWeb);
