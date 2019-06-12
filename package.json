@@ -8,7 +8,8 @@
     "build": "yarn clean && tsc",
     "clean": "rm -rf ./dist",
     "watch": "tsc --watch",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "release": "yarn build && yarn publish --access public"
   },
   "author": "Jeremy Li",
   "license": "MIT",
