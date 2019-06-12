@@ -18,29 +18,34 @@ $ npx cap sync
 
 ## Example
 ```ts
-await segmentPlugin.setUp({
-  key: 'test_key',
-  useLocationServices: false, // optional; defaults to false
-  trackLifecycle: true, // optional; defaults to false
-});
+import { segmentPlugin } from '@jairemix/capacitor-segment';
 
-await segmentPlugin.identify({
-  userID: 'jake_peralta',
-  traits: { // optional
-    noice: true,
-    smort: true,
-    toit: true,
-  },
-});
+async function test() {
 
-await segmentPlugin.track({
-  eventName: 'item_ordered',
-  properties: { // optional
-    itemID: 'orange_soda'
-  },
-});
+  await segmentPlugin.setUp({
+    key: 'test_key',
+    useLocationServices: false, // optional; defaults to false
+    trackLifecycle: true, // optional; defaults to false
+  });
 
-await segmentPlugin.reset(); // on logout
+  await segmentPlugin.identify({
+    userID: 'jake_peralta',
+    traits: { // optional
+      noice: true,
+      smort: true,
+      toit: true,
+    },
+  });
+
+  await segmentPlugin.track({
+    eventName: 'item_ordered',
+    properties: { // optional
+      itemID: 'orange_soda',
+    },
+  });
+
+  await segmentPlugin.reset(); // on logout
+}
 ```
 
 ## Methods
