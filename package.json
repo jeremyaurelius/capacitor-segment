@@ -1,6 +1,6 @@
 {
   "name": "@jairemix/capacitor-segment",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "capacitor wrapper plugin for Segment SDK",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
