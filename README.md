@@ -1,6 +1,6 @@
 # capacitor-segment
 - Capacitor wrapper plugin for Segment analytics mobile SDK.
-- Currently only implemented on iOS.
+- Only implemented on iOS and Android (not for PWA)
 
 ## Installation
 
@@ -14,6 +14,27 @@ $ yarn cap sync
 ```
 $ npm install @jairemix/capacitor-segment
 $ npx cap sync
+```
+### Android only
+After installing and syncing the Capacitor plugin, remember to add it to `MainActivity.java`
+```java
+// Other Imports
+import com.jairemix.capacitor.segment.SegmentPlugin;
+
+public class MainActivity extends BridgeActivity {
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    // Initializes the Bridge
+    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
+      add(SegmentPlugin.class);
+      // Additional plugins you've installed go here
+    }});
+  }
+  
+}
 ```
 
 ## Example
