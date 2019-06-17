@@ -44,7 +44,7 @@ class PluginTests: XCTestCase {
         let call = CAPPluginCall(callbackId: "test", options: [
           "key": "test_segment_key"
         ], success: { (result, call) in
-          XCTAssertEqual(result!.data.count, 0);
+          XCTAssertEqual(result!.data == nil, true);
           fulfill(());
         }, error: { (err: CAPPluginCallError?) in
           XCTFail("🤦‍♂️ Error callback should not have been called")
