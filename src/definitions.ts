@@ -26,8 +26,7 @@ export interface SegmentPlugin {
 }
 
 export interface SegmentPluginError {
-  message: string;
-  code:
+  message:
     '[SET_UP] DUPE_CALL' |
     '[SET_UP] NO_KEY' |
     '[IDENTIFY] NOT_SET_UP' |

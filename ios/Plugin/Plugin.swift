@@ -20,9 +20,7 @@ public class SegmentPlugin: CAPPlugin {
 
     @objc func setUp(_ call: CAPPluginCall) {
         if (self.key != nil) {
-          call.error("segment already set up", nil, [
-            "code": "[SET_UP] DUPE_CALL",
-          ]);
+          call.error("[SET_UP] DUPE_CALL");
           return;
         }
         let key = call.getString("key")
@@ -30,9 +28,7 @@ public class SegmentPlugin: CAPPlugin {
         let trackLifecycle = call.getBool("trackLifecycle") ?? false;
 
         if (key == nil) {
-            call.error("segment key not specified", nil, [
-              "code": "[SET_UP] NO_KEY",
-            ]);
+            call.error("[SET_UP] NO_KEY");
             return;
         } else {
             #if DEBUG
@@ -46,22 +42,18 @@ public class SegmentPlugin: CAPPlugin {
             
             SEGAnalytics.setup(with: config)
             
-            call.success([:])
+            call.success();
         }
     }
     
     @objc func identify(_ call: CAPPluginCall) {
         if (self.key == nil) {
-          call.error("segment not set up", nil, [
-            "code": "[IDENTIFY] NOT_SET_UP",
-          ]);
+          call.error("[IDENTIFY] NOT_SET_UP");
           return;
         }
         let userID = call.getString("userID")
         if (userID == nil) {
-          call.error("no userID specified", nil, [
-            "code": "[IDENTIFY] NO_USER_ID",
-          ]);
+          call.error("[IDENTIFY] NO_USER_ID");
           return;
         }
         
@@ -73,21 +65,17 @@ public class SegmentPlugin: CAPPlugin {
         
         SEGAnalytics.shared().identify(userID!, traits: traits)
         
-        call.success([:])
+        call.success();
     }
     
     @objc func track(_ call: CAPPluginCall) {
         if (self.key == nil) {
-            call.error("segment not set up", nil, [
-              "code": "[TRACK] NOT_SET_UP",
-            ]);
+            call.error("[TRACK] NOT_SET_UP");
             return;
         }
         let eventName = call.getString("eventName")
         if (eventName == nil) {
-            call.error("no eventName specified", nil, [
-              "code": "[TRACK] NO_EVENT_NAME",
-            ]);
+            call.error("[TRACK] NO_EVENT_NAME");
             return;
         }
         
@@ -100,14 +88,12 @@ public class SegmentPlugin: CAPPlugin {
         
         SEGAnalytics.shared().track(eventName!, properties: properties, options: options)
         
-        call.success([:])
+        call.success();
     }
     
     @objc func reset(_ call: CAPPluginCall) {
         if (self.key == nil) {
-            call.error("segment not set up", nil, [
-              "code": "[RESET] NOT_SET_UP",
-            ]);
+            call.error("[RESET] NOT_SET_UP");
             return;
         }
         #if DEBUG
@@ -115,6 +101,6 @@ public class SegmentPlugin: CAPPlugin {
         #endif
         
         SEGAnalytics.shared().reset()
-        call.success([:])
+        call.success();
     }
 }

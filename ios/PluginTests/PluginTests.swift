@@ -30,7 +30,7 @@ class PluginTests: XCTestCase {
           XCTFail("🤦‍♂️ Success callback should not have been called with empty key")
           fulfill(());
         }, error: { (err: CAPPluginCallError?) in
-          XCTAssertEqual(err!.data!["code"]! as? String, "[SET_UP] NO_KEY");
+          XCTAssertEqual(err!.message!, "[SET_UP] NO_KEY");
           fulfill(());
         });
         plugin.setUp(call!);
@@ -64,7 +64,7 @@ class PluginTests: XCTestCase {
           XCTFail("🤦‍♂️ Success callback should not have been called")
           fulfill(());
         }, error: { (err: CAPPluginCallError?) in
-          XCTAssertEqual(err!.data!["code"]! as? String, "[SET_UP] DUPE_CALL");
+          XCTAssertEqual(err!.message!, "[SET_UP] DUPE_CALL");
           fulfill(());
         });
         plugin.setUp(call!);
@@ -95,7 +95,7 @@ class PluginTests: XCTestCase {
           XCTFail("🤦‍♂️ Success callback should not have been called")
           fulfill(());
         }, error: { (err: CAPPluginCallError?) in
-          XCTAssertEqual(err!.data!["code"]! as? String, "[IDENTIFY] NOT_SET_UP");
+          XCTAssertEqual(err!.message!, "[IDENTIFY] NOT_SET_UP");
           fulfill(());
         });
         plugin.identify(call!);
@@ -114,7 +114,7 @@ class PluginTests: XCTestCase {
           XCTFail("🤦‍♂️ Success callback should not have been called")
           fulfill(());
         }, error: { (err: CAPPluginCallError?) in
-          XCTAssertEqual(err!.data!["code"]! as? String, "[IDENTIFY] NO_USER_ID");
+          XCTAssertEqual(err!.message!, "[IDENTIFY] NO_USER_ID");
           fulfill(());
         });
         plugin.identify(call!);
@@ -160,7 +160,7 @@ class PluginTests: XCTestCase {
           XCTFail("🤦‍♂️ Success callback should not have been called");
           fulfill(());
         }, error: { (err: CAPPluginCallError?) in
-          XCTAssertEqual(err!.data!["code"]! as? String, "[TRACK] NOT_SET_UP");
+          XCTAssertEqual(err!.message!, "[TRACK] NOT_SET_UP");
           fulfill(());
         });
         plugin.track(call!);
@@ -179,7 +179,7 @@ class PluginTests: XCTestCase {
           XCTFail("🤦‍♂️ Success callback should not have been called");
           fulfill(());
         }, error: { (err: CAPPluginCallError?) in
-          XCTAssertEqual(err!.data!["code"]! as? String, "[TRACK] NO_EVENT_NAME");
+          XCTAssertEqual(err!.message!, "[TRACK] NO_EVENT_NAME");
           fulfill(());
         });
         plugin.track(call!);
@@ -224,7 +224,7 @@ class PluginTests: XCTestCase {
           XCTFail("🤦‍♂️ Success callback should not have been called");
           fulfill(());
         }, error: { (err: CAPPluginCallError?) in
-          XCTAssertEqual(err!.data!["code"]! as? String, "[RESET] NOT_SET_UP");
+          XCTAssertEqual(err!.message!, "[RESET] NOT_SET_UP");
           fulfill(());
         });
         plugin.reset(call!);
