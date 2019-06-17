@@ -1,5 +1,5 @@
 
   <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.jairemix.capacitor-segment.capacitorpluginsegment">
+      package="com.jairemix.capacitor.segment.capacitorsegment">
   </manifest>
   

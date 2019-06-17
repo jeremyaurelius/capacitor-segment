@@ -30,7 +30,7 @@
     "ios/Podfile",
     "ios/Podfile.lock",
     "android/",
-    "JairemixCapacitorSegment.podspec"
+    "CapacitorSegment.podspec"
   ],
   "keywords": [
     "capacitor",
