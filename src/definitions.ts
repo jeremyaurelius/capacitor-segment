@@ -7,7 +7,6 @@ declare module '@capacitor/core' {
 export interface SegmentPlugin {
   setUp(options: {
     key: string,
-    useLocationServices?: boolean,
     trackLifecycle?: boolean,
   }): Promise<{}>;
 

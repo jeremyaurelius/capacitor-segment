@@ -76,7 +76,7 @@ class PluginTests: XCTestCase {
 
     self.wait(for: [expectation], timeout: 1);
     
-    // TODO: test location services and lifecycle
+    // TODO: test lifecycle
 
   }
   

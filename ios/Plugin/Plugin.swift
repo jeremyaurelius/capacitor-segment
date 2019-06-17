@@ -24,7 +24,6 @@ public class SegmentPlugin: CAPPlugin {
           return;
         }
         let key = call.getString("key")
-        let useLocationServices = call.getBool("useLocationServices") ?? false;
         let trackLifecycle = call.getBool("trackLifecycle") ?? false;
 
         if (key == nil) {
@@ -32,12 +31,11 @@ public class SegmentPlugin: CAPPlugin {
             return;
         } else {
             #if DEBUG
-            print("[Segment] 🔑 Key: " + key! + ". 🌏 Use location: " + useLocationServices.description + ". ♼ Track lifecycle: " + trackLifecycle.description + ".")
+            print("[Segment] 🔑 Key: " + key! + ". ♼ Track lifecycle: " + trackLifecycle.description + ".")
             #endif
             self.key = key;
             
             let config: SEGAnalyticsConfiguration = SEGAnalyticsConfiguration.init(writeKey: key!)
-            config.shouldUseLocationServices = useLocationServices;
             config.trackApplicationLifecycleEvents = trackLifecycle;
             
             SEGAnalytics.setup(with: config)

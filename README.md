@@ -24,7 +24,6 @@ async function test() {
 
   await segmentPlugin.setUp({
     key: 'test_key',
-    useLocationServices: false, // optional; defaults to false
     trackLifecycle: true, // optional; defaults to false
   });
 
@@ -50,7 +49,7 @@ async function test() {
 
 ## Methods
 
-#### setUp (options: { key: string, useLocationServices = false, trackLifecycle = false })
+#### setUp (options: { key: string, trackLifecycle = false })
 Passes segment key to Segment SDK
 
 #### identify (options: { userID: string, traits? })

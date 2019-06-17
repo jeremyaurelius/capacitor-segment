@@ -5,18 +5,32 @@ import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
+
+import android.content.Context;
 import android.util.Log;
+import com.segment.analytics.Analytics;
+import com.segment.analytics.Analytics.Builder;
+import com.segment.analytics.Options;
+import com.segment.analytics.Properties;
+import com.segment.analytics.Traits;
+
+import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 @NativePlugin()
 public class SegmentPlugin extends Plugin {
 
-    private static final String PLUGIN_TAG = "[CapacitorSegment]";
+    private static final String PLUGIN_TAG = "CapacitorSegment";
     private String key;
+    private Analytics analytics;
 
-    public void load() {
-        super.load();
-        Log.d(PLUGIN_TAG, "capacitor segment loaded");
-    }
+//    public void load() {
+//        super.load();
+//        Log.d(PLUGIN_TAG, "capacitor segment loaded");
+//    }
 
     @PluginMethod()
     public void setUp(PluginCall call) {
@@ -33,8 +47,17 @@ public class SegmentPlugin extends Plugin {
             return;
         }
 
-        Log.d(PLUGIN_TAG, "setUp() key: " + key);
+        boolean trackLifecycle = call.getBoolean("trackLifecycle", false);
 
+        Log.d(PLUGIN_TAG, "setUp() key: " + key + ". trackLifecycle: " + trackLifecycle);
+
+        Builder builder = new Analytics.Builder(this.getContext(), key);
+
+        if (trackLifecycle) {
+            builder.trackApplicationLifecycleEvents();
+        }
+
+        this.analytics = builder.build();
         this.key = key;
 
         call.success();
@@ -56,11 +79,10 @@ public class SegmentPlugin extends Plugin {
         }
 
         JSObject traits = call.getObject("traits");
-        if (traits == null) {
-            traits = new JSObject();
-        }
 
-        Log.d(PLUGIN_TAG, "identify() userID: " + userID + ". traits: " + traits.toString());
+        Log.d(PLUGIN_TAG, "identify() userID: " + userID + ". traits: " + traits);
+
+        this.analytics.identify(userID, makeTraitsFromMap(makeMapFromJSON(traits)), null); // currently not supporting options
 
         call.success();
     }
@@ -82,17 +104,58 @@ public class SegmentPlugin extends Plugin {
 
         JSObject properties = call.getObject("properties");
         JSObject options = call.getObject("options");
-        if (properties == null) {
-            properties = new JSObject();
-        }
-        if (options == null) {
-            options = new JSObject();
-        }
 
+        Log.d(PLUGIN_TAG, "track() properties: " + properties + ". options: " + options);
 
-        Log.d(PLUGIN_TAG, "track() eventName: " + eventName + ". properties: " + properties.toString() + ". options: " + options.toString());
+        this.analytics.track(
+                eventName,
+                makePropertiesFromMap(makeMapFromJSON(properties)),
+                makeOptionsFromJSON(options)
+        );
 
         call.success();
+    }
+
+    private Map makeMapFromJSON(JSObject obj) {
+        Iterator<String> keys = obj.keys();
+        Map map = new HashMap();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            try {
+                Object value = obj.get(key);
+                map.put(key, value);
+            } catch (JSONException e) {
+                Log.d(PLUGIN_TAG, "❌ could not get value for key " + key);
+            }
+        }
+        return map;
+    }
+
+    private Traits makeTraitsFromMap(Map map) {
+        Traits traits = new Traits();
+        traits.putAll(map);
+        return traits;
+    }
+
+    private Properties makePropertiesFromMap(Map map) {
+        Properties properties = new Properties();
+        properties.putAll(map);
+        return properties;
+    }
+
+    private Options makeOptionsFromJSON(JSObject obj) {
+        Options options = new Options();
+        Iterator<String> keys = obj.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            try {
+                boolean enabled = obj.getBool(key);
+                options.setIntegration(key, enabled);
+            } catch (Exception e) {
+                Log.d(PLUGIN_TAG, "❌ could not get boolean for key " + key);
+            }
+        }
+        return options;
     }
 
     @PluginMethod()
@@ -101,6 +164,8 @@ public class SegmentPlugin extends Plugin {
             call.error("[RESET] NOT_SET_UP");
             return;
         }
+
+        this.analytics.reset();
 
         call.success();
     }
