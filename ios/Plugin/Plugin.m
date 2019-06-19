@@ -7,4 +7,5 @@ CAP_PLUGIN(SegmentPlugin, "SegmentPlugin",
            CAP_PLUGIN_METHOD(setUp, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(identify, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(track, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(reset, CAPPluginReturnPromise);
 )
