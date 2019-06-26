@@ -116,28 +116,28 @@ public class SegmentPlugin extends Plugin {
         call.success();
     }
 
-    private Map makeMapFromJSON(JSObject obj) {
+    private Map<String, Object> makeMapFromJSON(JSObject obj) {
         Iterator<String> keys = obj.keys();
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<String, Object>();
         while (keys.hasNext()) {
             String key = keys.next();
             try {
                 Object value = obj.get(key);
                 map.put(key, value);
             } catch (JSONException e) {
-                Log.d(PLUGIN_TAG, "❌ could not get value for key " + key);
+                Log.d(PLUGIN_TAG, "could not get value for key " + key);
             }
         }
         return map;
     }
 
-    private Traits makeTraitsFromMap(Map map) {
+    private Traits makeTraitsFromMap(Map<String, Object> map) {
         Traits traits = new Traits();
         traits.putAll(map);
         return traits;
     }
 
-    private Properties makePropertiesFromMap(Map map) {
+    private Properties makePropertiesFromMap(Map<String, Object> map) {
         Properties properties = new Properties();
         properties.putAll(map);
         return properties;
@@ -152,7 +152,7 @@ public class SegmentPlugin extends Plugin {
                 boolean enabled = obj.getBool(key);
                 options.setIntegration(key, enabled);
             } catch (Exception e) {
-                Log.d(PLUGIN_TAG, "❌ could not get boolean for key " + key);
+                Log.d(PLUGIN_TAG, "could not get boolean for key " + key);
             }
         }
         return options;
